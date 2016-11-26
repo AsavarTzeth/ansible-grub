@@ -1,0 +1,3 @@
+---
+legacy_boot: false
+grub_package_name: grub
