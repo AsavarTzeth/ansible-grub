@@ -1,2 +1,3 @@
 ---
 grub_package_name: grub-pc
+intel_ucode_pkg_name: intel-microcode

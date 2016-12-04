@@ -1,3 +1,3 @@
 ---
-legacy_boot: false
-grub_package_name: grub
+grub_pkg_name: grub
+intel_ucode_pkg_name: intel-ucode

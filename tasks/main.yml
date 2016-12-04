@@ -6,15 +6,26 @@
     - "{{ ansible_os_family }}.yml"
   tags: grub
 
+- name: enable intel microcode updates
+  package:
+    name: "{{ intel_ucode_pkg_name }}"
+    state: present
+  args:
+    update_cache: true
+  notify: update config
+  when: "'GenuineIntel' in ansible_processor"
+  become: true
+  tags: grub
+
 - name: install grub
   package:
-    name: "{{ grub_package_name }}"
+    name: "{{ grub_pkg_name }}"
     state: present
   args:
     update_cache: true
   notify:
     - install to disk
     - update config
-  when: ansible_architecture == 'x86' or legacy_boot
+  when: ansible_architecture == 'x86'
   become: true
   tags: grub
