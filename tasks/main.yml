@@ -4,7 +4,7 @@
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
-  tags: grub
+  tags: grub,dm-crypt
 
 - name: enable intel microcode updates
   package:
@@ -17,6 +17,16 @@
   become: true
   tags: grub
 
+- name: set grub_target
+  set_fact:
+    grub_target: "--target=i386-pc"
+  tags: grub
+
+- name: setup disk encryption
+  include: crypt.yml
+  when: boot_encryption.enabled
+  tags: grub,dm-crypt
+
 - name: install grub
   package:
     name: "{{ grub_pkg_name }}"
@@ -26,6 +36,5 @@
   notify:
     - install to disk
     - update config
-  when: ansible_architecture == 'x86'
   become: true
   tags: grub

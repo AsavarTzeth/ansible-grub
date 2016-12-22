@@ -1,3 +1,12 @@
 ---
 grub_package_name: grub
 intel_ucode_pkg_name: intel-ucode
+
+# Disk Encryption
+grub_secure_files:
+  - path: /crypto_keyfile.bin
+    mode: '0000'
+  - path: /boot/initramfs-linux-fallback.img
+    mode: '0600'
+  - path: /boot/initramfs-linux.img
+    mode: '0600'

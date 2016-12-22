@@ -1,0 +1,36 @@
+---
+- name: get cryptdevice uuid
+  command: blkid -s UUID -o value "{{ boot_encryption.cryptdevice }}"
+  changed_when: false
+  register: cryptdevice_uuid
+  tags: grub,dm-crypt
+
+- name: set kernel cmdline
+  set_fact:
+    boot_options:
+      - "cryptdevice=UUID={{ cryptdevice_uuid.stdout }}:lvm"
+      - "root={{ boot_encryption.rootdevice }}"
+  tags: grub,dm-crypt
+
+- name: setup grub defaults
+  template:
+    src: grub.j2
+    dest: /etc/default/grub
+    mode: 0644
+  notify:
+    - mkinitcpio
+    - update config
+  tags: grub,dm-crypt
+
+- name: setup luks keyfile
+  command: dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
+  args:
+    creates: /crypto_keyfile.bin
+  tags: grub,dm-crypt
+
+- name: set secure permissions
+  file:
+    path: "{{ item.path }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ grub_secure_files }}"
+  tags: grub,dm-crypt
