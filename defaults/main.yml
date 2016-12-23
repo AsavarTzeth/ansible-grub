@@ -5,3 +5,5 @@ intel_ucode_pkg_name: intel-ucode
 # Full disk encryption is disabled by default
 boot_encryption:
   enabled: false
+
+grub_secure_files: []
