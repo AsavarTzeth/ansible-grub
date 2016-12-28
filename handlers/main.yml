@@ -4,6 +4,3 @@
 
 - name: update config
   command: grub-mkconfig -o /boot/grub/grub.cfg
-
-- name: mkinitcpio
-  command: mkinitcpio -p linux
