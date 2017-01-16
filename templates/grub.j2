@@ -1,8 +1,8 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 GRUB_DEFAULT=0
-GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="Arch"
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR="Ansible"
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 {% if grub_boot_options is defined %}
 GRUB_CMDLINE_LINUX="{% for o in grub_boot_options %}{{ o }} {% endfor %}"
@@ -14,7 +14,7 @@ GRUB_CMDLINE_LINUX="{% for o in grub_boot_options %}{{ o }} {% endfor %}"
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 
 # Uncomment to enable Hidden Menu, and optionally hide the timeout count
-#GRUB_HIDDEN_TIMEOUT=5
+GRUB_HIDDEN_TIMEOUT=1
 #GRUB_HIDDEN_TIMEOUT_QUIET=true
 
 # Uncomment to use basic console
