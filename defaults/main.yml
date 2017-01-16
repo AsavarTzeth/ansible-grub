@@ -1,6 +1,8 @@
 ---
 grub_pkg_name: grub
 intel_ucode_pkg_name: intel-ucode
+grub_target: --target=i386-pc
+grub_boot_options: []
 
 # Full disk encryption is disabled by default
 boot_encryption:

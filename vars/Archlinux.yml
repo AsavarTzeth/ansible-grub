@@ -2,6 +2,9 @@
 grub_package_name: grub
 intel_ucode_pkg_name: intel-ucode
 
+# Defaults for /etc/default/grub
+grub_distributor: Arch
+
 # Disk Encryption
 grub_secure_files:
   - path: /crypto_keyfile.bin

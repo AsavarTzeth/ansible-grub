@@ -4,6 +4,7 @@
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
     - "{{ ansible_distribution }}.yml"
     - "{{ ansible_os_family }}.yml"
+  become: false
   tags: grub,dm-crypt
 
 - name: enable intel microcode updates
@@ -17,14 +18,26 @@
   become: true
   tags: grub
 
-- name: set grub_target
-  set_fact:
-    grub_target: "--target=i386-pc"
-  tags: grub
-
 - name: setup disk encryption
   include: crypt.yml
   when: boot_encryption.enabled
+  become: false
+  tags: grub,dm-crypt
+
+- name: append boot_options
+  set_fact:
+    grub_boot_options: "{{ grub_boot_options }} + {{ boot_options }}"
+  when: boot_options is defined
+  become: false
+  tags: grub,dm-crypt
+
+- name: setup grub defaults
+  template:
+    src: grub.j2
+    dest: /etc/default/grub
+    mode: 0644
+  notify: update config
+  become: true
   tags: grub,dm-crypt
 
 - name: install grub
