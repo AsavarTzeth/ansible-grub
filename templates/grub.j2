@@ -2,7 +2,9 @@
 
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=0
-GRUB_DISTRIBUTOR="Ansible"
+{% if grub_distributor is defined or anisble_distribution is defined %}
+GRUB_DISTRIBUTOR="{{ grub_distributor | default(ansible_distribution) }}"
+{% endif %}
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 {% if grub_boot_options is defined %}
 GRUB_CMDLINE_LINUX="{% for o in grub_boot_options %}{{ o }} {% endfor %}"

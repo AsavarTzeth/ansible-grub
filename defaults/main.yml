@@ -1,7 +1,12 @@
 ---
+# Distribution package names
 grub_pkg_name: grub
 intel_ucode_pkg_name: intel-ucode
+
+# Default installation target
 grub_target: --target=i386-pc
+
+# Defaults for /etc/default/grub
 grub_boot_options: []
 
 # Full disk encryption is disabled by default

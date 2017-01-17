@@ -1,3 +1,4 @@
 ---
+# Distribution package names
 grub_package_name: grub2
 intel_ucode_pkg_name: firmware-intel-ucode

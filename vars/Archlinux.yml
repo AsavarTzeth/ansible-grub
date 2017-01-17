@@ -1,4 +1,5 @@
 ---
+# Distribution package names
 grub_package_name: grub
 intel_ucode_pkg_name: intel-ucode
 
